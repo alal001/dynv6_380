@@ -1,0 +1,32 @@
+# 忽略所有 .log 文件
+*.log
+
+# 忽略所有 .tmp 文件
+*.tmp
+
+# 忽略 node_modules 目录
+node_modules/
+
+# 忽略临时文件
+tmp/
+temp/
+
+# 忽略操作系统生成的文件
+.DS_Store
+Thumbs.db
+
+# 忽略编译生成的文件
+*.o
+*.so
+*.exe
+
+# 忽略特定的配置文件
+config.yaml
+
+# 忽略 Python 虚拟环境目录
+venv/
+__pycache__/
+
+# 忽略 IDE 生成的文件
+.vscode/
+.idea/
