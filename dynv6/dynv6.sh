@@ -8,7 +8,7 @@
 
 # ====================================变量定义====================================
 # 版本号定义
-version="0.0.1"
+version="0.0.2"
 
 # 导入skipd数据
 eval `dbus export dynv6`
@@ -194,7 +194,7 @@ restart)
     add_dynv6_cru
     sleep $dynv6_delay_time
     arDdnsCheck $mainDomain $subDomain
-    echo "check $mainDomain, $subDomain"
+    echo "check: $subDomain.$mainDomain"
 	write_dynv6_version
 	;;
 *)
