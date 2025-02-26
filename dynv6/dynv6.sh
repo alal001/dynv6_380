@@ -101,9 +101,9 @@ arDdnsUpdate() {
     arApiPost $payload $zoneID $idA
     payload='{"name": "'"${subDomain2}.${mainDomain}"'", "zoneID": "'"${zoneID}"'", "type": "A", "data": "'"${myIP4}"'", "id": "'"${idAX}"'"}'
     arApiPost $payload $zoneID $idAX
-    payload='{"name": "'"${mainDomain}"'", "zoneID": "'"${zoneID}"'", "type": "A", "data": "'"${myIP6}"'", "id": "'"${id4A}"'"}'
+    payload='{"name": "'"${mainDomain}"'", "zoneID": "'"${zoneID}"'", "type": "AAAA", "data": "'"${myIP6}"'", "id": "'"${id4A}"'"}'
     arApiPost $payload $zoneID $id4A
-    payload='{"name": "'"${subDomain2}.${mainDomain}"'", "zoneID": "'"${zoneID}"'", "type": "A", "data": "'"${myIP6}"'", "id": "'"${id4AX}"'"}'
+    payload='{"name": "'"${subDomain2}.${mainDomain}"'", "zoneID": "'"${zoneID}"'", "type": "AAAA", "data": "'"${myIP6}"'", "id": "'"${id4AX}"'"}'
     arApiPost $payload $zoneID $id4AX
     # 输出记录IP
     if [ "$recordCD" == "$myIP4" ]; then
