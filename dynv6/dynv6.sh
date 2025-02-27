@@ -113,7 +113,7 @@ arDdnsUpdate() {
     # 输出错误信息
     errMsg=$(echo $recordRS | sed 's/.*,"message":"\([^"]*\)".*/\1/')
     dbus set dynv6_run_status="$errMsg"
-    echo $errMsg
+    echo "$errMsg"
 }
 
 # 动态检查更新
@@ -147,7 +147,7 @@ parseDomain() {
     # mainDomain=${dynv6_config_domain#*.}
     mainDomain=${dynv6_config_domain}
     local tmp=${dynv6_config_domain%$mainDomain}
-    subDomain="@" #${tmp%.}
+    subDomain="@" # ${tmp%.}
 }
 
 #将执行脚本写入crontab定时运行
@@ -181,8 +181,9 @@ start)
 	if [ "$dynv6_enable" == "1" ] && [ "$dynv6_auto_start" == "1" ];then
     parseDomain
     add_dynv6_cru
+    sleep 5
     sleep $dynv6_delay_time
-    arDdnsCheck $mainDomain $subDomain
+    arDdnsCheck "$mainDomain" "$subDomain"
 	fi
 	;;
 stop | kill )
@@ -192,9 +193,10 @@ restart)
     stop_dynv6
     parseDomain
     add_dynv6_cru
+    sleep 5
     sleep $dynv6_delay_time
-    arDdnsCheck $mainDomain $subDomain
-    echo "check: $subDomain.$mainDomain"
+    arDdnsCheck "$mainDomain" "$subDomain"
+    echo \"check: "${subDomain}"."${mainDomain}"\"
 	write_dynv6_version
 	;;
 *)
