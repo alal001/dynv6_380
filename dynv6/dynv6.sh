@@ -20,8 +20,9 @@ export PERP_BASE=/koolshare/perp
 arToken=$dynv6_config_token
 # 主域名
 mainDomain="$dynv6_config_domain"
-# 子域名列表
-subDomains='"router" "home" "cloud" "onedev"'
+# 读取子域名列表
+subDomains=$(dbus get dynv6_config_subdomains)
+[ -z "$subDomains" ] && subDomains="router"
 
 # 是否启用 IPv4 更新
 ENABLE_IPV4=true
