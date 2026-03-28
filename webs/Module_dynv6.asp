@@ -51,6 +51,10 @@
 			check_selected("dynv6_auto_start", db_dynv6_.dynv6_auto_start);
 			check_selected("dynv6_delay_time", db_dynv6_.dynv6_delay_time);
 			check_selected("dynv6_refresh_time", db_dynv6_.dynv6_refresh_time);
+			// 初始化子域名默认值
+			if (typeof db_dynv6_.dynv6_config_subdomains === "undefined" || db_dynv6_.dynv6_config_subdomains === "") {
+				document.form.dynv6_config_subdomains.value = "router";
+			}
 		}
 
         var kn = '00AC69F5CCC8BDE47CD3D371603748378C9CFAD2938A6B021E0E191013975AD683F5CBF9ADE8BD7D46B4D2EC2D78AF146F1DD2D50DC51446BB8880B8CE88D476694DFC60594393BEEFAA16F5DBCEBE22F89D640F5336E42F587DC4AFEDEFEAC36CF007009CCCE5C1ACB4FF06FBA69802A8085C2C54BADD0597FC83E6870F1E36FD';
@@ -188,7 +192,7 @@
 			<input type="hidden" id="dynv6_run_status" name="dynv6_run_status" value='<% dbus_get_def("dynv6_run_status", "0"); %>'/>
 
 			<table class="content" align="center" cellpadding="0" cellspacing="0">
-				<tr>
+					<tr>
 					<td width="17">&nbsp;</td>
 					<td valign="top" width="202">
 						<div id="mainMenu"></div>
@@ -217,9 +221,9 @@
                                                 <!--<div class="formfontdesc" id="cmdDesc"></div>-->
 												<table style="margin:10px 0px 0px 0px;" width="100%" border="1" align="center" cellpadding="4" cellspacing="0" bordercolor="#6b8fa3" class="FormTable" id="routing_table">
 													<thead>
-													<tr>
-														<td colspan="2">开关设置</td>
-													</tr>
+														<tr>
+															<td colspan="2">开关设置</td>
+														</tr>
 													</thead>
 													<tr>
 													<th>开启dynv6</th>
@@ -238,46 +242,41 @@
                                                             <div id="dynv6_version_status" style="padding-top:5px;margin-left:230px;margin-top:0px;float:left;">
                                                                 <i>当前版本：<% dbus_get_def("dynv6_version", "未知"); %></i>
                                                             </div>
-													</td>
+														</td>
 													</tr>
-		                                    	</table>
+		                                    		</table>
 												<table style="margin:10px 0px 0px 0px;" width="100%" border="1" align="center" cellpadding="4" cellspacing="0" bordercolor="#6b8fa3" class="FormTable" id="dynv6_detail_table">
 													<thead>
-													<tr>
-														<td colspan="2">基本设置</td>
-													</tr>
+														<tr>
+															<td colspan="2">基本设置</td>
+														</tr>
 													</thead>
-													<!--tr>
-														<th width="35%">dnspod账户</th>
-														<td>
-															<input type="text" class="input_ss_table" style="width:auto;" size="30" id="dynv6_config_uname" name="dynv6_config_uname" maxlength="20" placeholder="dnspod账户" value='<% dbus_get_def("dynv6_config_uname", ""); %>' >
-														</td>
-													</tr>
-													<tr>
-														<th width="35%">dnspod密码</th>
-														<td>
-															<input  type="password" class="input_ss_table" style="width:auto;" size="20"  id="dynv6_config_old_pwd" name="dynv6_config_old_pwd" maxlength="30" placeholder="dnspod密码" value='<% dbus_get_def("dynv6_config_old_pwd", ""); %>' />
-															<div style="margin-left:170px;margin-top:-20px;margin-bottom:0px"><input type="checkbox" name="show_pass" onclick="pass_checked(document.form.dynv6_config_old_pwd);">显示密码</div>
-														</td>
-													</tr-->
 													<tr>
 														<th width="35%">dynv6 Token</th>
 														<td>
-															<input type="text" class="input_ss_table" style="width:auto;" size="30" id="dynv6_config_token" name="dynv6_config_token" maxlength="50" placeholder="ID,Token" value='<% dbus_get_def("dynv6_config_token", ""); %>' >
-															<div class="formfontdesc" style="margin-left:270px;margin-top:-20px;margin-bottom:0px;color:rgb(255,204,0);">推荐使用</div>
+															<input type="text" class="input_ss_table" style="width:auto;" size="30" id="dynv6_config_token" name="dynv6_config_token" maxlength="50" placeholder="Token" value='<% dbus_get_def("dynv6_config_token", ""); %>' >
+															<div class="formfontdesc" style="margin-left:270px;margin-top:-20px;margin-bottom:0px;color:rgb(255,204,0);">必须</div>
 														</td>
 													</tr>
 													<tr>
 														<th width="35%">域名</th>
 														<td>
 															<input type="text" class="input_ss_table" style="width:auto;" size="30" id="dynv6_config_domain" name="dynv6_config_domain" maxlength="40" placeholder="填写完整域名" value='<% dbus_get_def("dynv6_config_domain", ""); %>' >
+															<div class="formfontdesc" style="margin-left:270px;margin-top:-20px;margin-bottom:0px;color:rgb(255,204,0);">必须</div>
+														</td>
+													</tr>
+													<tr>
+														<th width="35%">子域名列表</th>
+														<td>
+															<input type="text" class="input_ss_table" style="width:auto;" size="30" id="dynv6_config_subdomains" name="dynv6_config_subdomains" maxlength="200" placeholder="router home nas camera" value='<% dbus_get_def("dynv6_config_subdomains", "router"); %>' >
+															<div class="formfontdesc" style="margin-left:270px;margin-top:-20px;margin-bottom:0px;color:rgb(255,204,0);">空格分隔，如：router nas</div>
 														</td>
 													</tr>
 
 													<thead>
-													<tr>
-														<td colspan="3">运行状态</td>
-													</tr>
+														<tr>
+															<td colspan="3">运行状态</td>
+														</tr>
 													</thead>
 													<tr>
 													    <th width="35%">状态</th>
@@ -289,9 +288,9 @@
 													</tr>
 
 													<thead>
-													<tr>
-														<td colspan="4">启动设置</td>
-													</tr>
+														<tr>
+															<td colspan="4">启动设置</td>
+														</tr>
 													</thead>
 													<tr>
 													    <th width="35%">开机自启</th>
@@ -303,7 +302,7 @@
 														</td>
 													</tr>
 
-		                                    	    <tr>
+		                                    	    	<tr>
 													    <th width="35%">启动延时</th>
 														<td>
 															<select id="dynv6_delay_time" name="dynv6_delay_time" class="input_option"  >
@@ -315,11 +314,11 @@
 													</tr>
 
 													<thead>
-													<tr>
-														<td colspan="4">刷新设置</td>
-													</tr>
+														<tr>
+															<td colspan="4">刷新设置</td>
+														</tr>
 													</thead>
-		                                    	    <tr>
+		                                    	    	<tr>
 													    <th width="35%">刷新时间</th>
 														<td>
 															<select id="dynv6_refresh_time" name="dynv6_refresh_time" class="input_option"  >
@@ -331,9 +330,9 @@
 													</tr>
 
 													<thead id="double_wan_set">
-													<tr>
-														<td colspan="4">双WAN设置</td>
-													</tr>
+														<tr>
+															<td colspan="4">双WAN设置</td>
+														</tr>
 													</thead>
 													<tr id="select_wan">
 													    <th width="35%">加速WAN口</th>
@@ -345,7 +344,7 @@
 														</td>
 													</tr>
 
-		 										</table>
+		 											</table>
 		 										<div id="warn" style="display: none;margin-top: 20px;text-align: center;font-size: 20px;margin-bottom: 20px;"class="formfontdesc" ></div>
 												<div class="apply_gen">
 													<button id="cmdBtn" class="button_gen" onclick="onSubmitCtrl(this, ' Refresh ')">提交</button>
@@ -365,7 +364,6 @@
 						</table>
 					</td>
 				</tr>
-			</table>
 		</form>
 		<div id="footer"></div>
     </body>
