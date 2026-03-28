@@ -46,8 +46,6 @@ Web 界面会显示运行状态。详细日志：
 cat /var/log/dynv6.log
 ```
 ## 卸载
-```bash
-/koolshare/dynv6/uninstall.sh
-```
+通过软件中心卸载
 ## 许可证
 MIT
